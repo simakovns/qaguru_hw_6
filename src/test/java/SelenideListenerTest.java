@@ -4,7 +4,6 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Test;
 import pages.GithubWebSteps;
 
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
@@ -14,7 +13,7 @@ import static org.openqa.selenium.By.partialLinkText;
 public class SelenideListenerTest {
 
     private final String REPOSITORY = "simakovns/qaguru_hw_6";
-    private final String ISSUENUMBER = "#1";
+    private final String ISSUE_NAME = "Test Issue";
 
     @Test
     public void clearSelenideTest() {
@@ -28,7 +27,7 @@ public class SelenideListenerTest {
 
         $(linkText(REPOSITORY)).click();
         $(partialLinkText("Issues")).click();
-        $(withText(ISSUENUMBER)).should(Condition.visible);
+        $("#issue_1").shouldHave(Condition.text(ISSUE_NAME));
     }
 
     @Test
@@ -50,8 +49,8 @@ public class SelenideListenerTest {
         step("Click Issues tab", () -> {
             $(partialLinkText("Issues")).click();
         });
-        step("Check Issue NUMBER " + ISSUENUMBER, () -> {
-            $(withText(ISSUENUMBER)).should(Condition.visible);
+        step("Check Issue Name: " + ISSUE_NAME, () -> {
+            $("#issue_1").shouldHave(Condition.text(ISSUE_NAME));
         });
     }
 
@@ -62,6 +61,6 @@ public class SelenideListenerTest {
         githubWebSteps.searchForRepository(REPOSITORY);
         githubWebSteps.openRepositoryPage(REPOSITORY);
         githubWebSteps.openIssuesTab();
-        githubWebSteps.shouldSeeIssueWithNumber(ISSUENUMBER);
+        githubWebSteps.shouldSeeIssueWithText(ISSUE_NAME);
     }
 }

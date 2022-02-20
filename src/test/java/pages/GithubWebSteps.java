@@ -38,9 +38,9 @@ public class GithubWebSteps {
         $(partialLinkText("Issues")).click();
     }
 
-    @Step("Check Issue {number}")
-    public void shouldSeeIssueWithNumber(String number) {
-        $(withText(number)).should(Condition.visible);
+    @Step("Check Issue {text}")
+    public void shouldSeeIssueWithText(String text) {
+        $("#issue_1").shouldHave(Condition.text(text));
     }
 
     @Attachment(value = "Screenshot", type = "text/html", fileExtension = "html")
